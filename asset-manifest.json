@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/recipe-calculator/static/js/main.1a3aba4a.js",
-    "index.html": "/recipe-calculator/index.html",
-    "main.1a3aba4a.js.map": "/recipe-calculator/static/js/main.1a3aba4a.js.map"
+    "main.js": "/recipe-staging/static/js/main.1a3aba4a.js",
+    "index.html": "/recipe-staging/index.html",
+    "main.1a3aba4a.js.map": "/recipe-staging/static/js/main.1a3aba4a.js.map"
   },
   "entrypoints": [
     "static/js/main.1a3aba4a.js"
