@@ -1,0 +1,23 @@
+#+title: Todo-list
+#+author: Ingi H
+#+language: en
+
+* Written summary should have the following:
+- mEq: [Na, K] :
+  Na : mg/23
+  K  : mg/39
+
+kg: patient weight (kg)
+
+- ml / kg (for totals)
+  :: formula volume
+  
+- kcal / kg (for totals)
+  :: kcal
+  
+- g (Protein) / kg (for total)
+  :: protein
+  
+- (kcal / ml) x 29.57
+  :: kcal per ounce
+
