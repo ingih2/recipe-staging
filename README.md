@@ -4,6 +4,8 @@
 
 This is a self-contained React app designed to calculate the nutrition of dialysis formulae. It is meant to be used as an assistive tool in a pediatric clinical setting.
 
+![screenshot](./doc/20250216-223539.png)
+
 ## Description
 
 The calculation procedure preserves desired significant figures, and allows for the calculation of post-decant additives (a straightforward but error prone calculation).
