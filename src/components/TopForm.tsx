@@ -11,6 +11,7 @@ export interface TopFormData {
     water: number;
     kg: number;
     decantTo: number;
+    finalVol: number;
 }
 
 export interface TopFormProps {
@@ -18,15 +19,17 @@ export interface TopFormProps {
     water: number;
     kg: number;
     decantTo: number;
+    finalVol: number;
 }
 
 const schema = Yup.object({
     water: Yup.number().required(),
     kg: Yup.number().required(),
     decantTo: Yup.number().required(),
+    finalVol: Yup.number().required(),
 });
 
-const TopForm: React.FC<TopFormProps> = ({ guidingHand, water, kg, decantTo }) => {
+const TopForm: React.FC<TopFormProps> = ({ guidingHand, water, kg, decantTo, finalVol }) => {
     const validate = makeValidate(schema);
     const required = makeRequired(schema);
 
@@ -34,7 +37,7 @@ const TopForm: React.FC<TopFormProps> = ({ guidingHand, water, kg, decantTo }) =
         <Form
             validate={validate}
             required={required}
-            initialValues={{ water, kg, decantTo }}
+            initialValues={{ water, kg, decantTo, finalVol }}
             onSubmit={(_v) => { }}
             render={({ handleSubmit }) => {
                 const handleSave = async (values: TopFormData): Promise<void> => {
@@ -69,6 +72,12 @@ const TopForm: React.FC<TopFormProps> = ({ guidingHand, water, kg, decantTo }) =
                                     label="Decant to (mL)"
                                     id="outlined-number"
                                     name="decantTo"
+                                    type="number"
+                                />
+                                <TextField
+                                    label="Final prescribed volume (mL)"
+                                    id="outlined-number"
+                                    name="finalVol"
                                     type="number"
                                 />
                             </Stack>

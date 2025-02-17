@@ -18,7 +18,7 @@ export const DATAGRIDCOLS: GridColDef[] = [
     { field: 'fat', headerName: 'Fat (g)' },
 ];
 
-export const generateGridRowsProp = (factorData: FactorData[], water: number, kg: number, decantTo: number): GridRowsProp => {
+export const generateGridRowsProp = (factorData: FactorData[], water: number, kg: number, decantTo: number, finalVol: number): GridRowsProp => {
     const factorDataFiltered: FactorData[] = factorData.filter((data) => {
         return data.type !== '' && data.subtype !== '';
     });
@@ -97,7 +97,7 @@ export const generateGridRowsProp = (factorData: FactorData[], water: number, kg
     }, {
             formula_name: "Pre-Decant",
             id:           +0, // ids will be assigned later
-            volume:       +0,
+            volume:       +water, // important bugfix (2025.02.09)
             kcal:         +0,
             protein:      +0,
             calcium:      +0,
@@ -137,7 +137,7 @@ export const generateGridRowsProp = (factorData: FactorData[], water: number, kg
     const intermediate = post_result.concat(decanted_result);
     const totals = intermediate.reduce((acc, curr) => {
         return {
-            formula_name: "TOTALS",
+            formula_name: "Totals",
             id:           0, // ids will be assigned later
             volume:       +acc.volume + +curr.volume,
             kcal:         +acc.kcal + +curr.kcal,
@@ -153,7 +153,7 @@ export const generateGridRowsProp = (factorData: FactorData[], water: number, kg
             fat:          +acc.fat + +curr.fat,
         };
     }, {
-            formula_name: "TOTALS",
+            formula_name: "Totals",
             id:            0,
             volume:       +0,
             kcal:         +0,
@@ -169,6 +169,26 @@ export const generateGridRowsProp = (factorData: FactorData[], water: number, kg
             fat:          +0,
      });
     post_result = post_result.concat(totals);
+
+    const ffv_ratio = (totals.volume >= finalVol) ? (finalVol / totals.volume) : 1.0;
+    const finality = {
+          formula_name: "Final Prescribed Volume",
+          id:         +0,
+          volume:     totals.volume * ffv_ratio,
+          kcal:       totals.kcal * ffv_ratio,
+          protein:    totals.protein * ffv_ratio,
+          calcium:    totals.calcium * ffv_ratio,
+          phosphorus: totals.phosphorus * ffv_ratio,
+          kalium:     totals.kalium * ffv_ratio,
+          sodium:     totals.sodium * ffv_ratio,
+          magnesium:  totals.magnesium * ffv_ratio,
+          retinol_iu: totals.retinol_iu * ffv_ratio,
+          vit_d_iu:   totals.vit_d_iu * ffv_ratio,
+          carb:       totals.carb * ffv_ratio,
+          fat:        totals.fat * ffv_ratio,
+    };
+    post_result = post_result.concat(finality);
+    
 
     // Fix indices for the final result, so the data is well-defined for table lib
     const real_result = pre_result.concat(post_result).map((item, index) => ({

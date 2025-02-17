@@ -43,6 +43,7 @@ class AppActivityRegion extends React.Component<AARProps, {
   water: number,
   kg: number,
   decantTo: number,
+  finalVol: number,
 }> {
   private childFormHandler = (formKey: number) => {
     return (values: FactorData) => {
@@ -86,10 +87,11 @@ class AppActivityRegion extends React.Component<AARProps, {
       plausibleEntries: 1,
       factorForms: [this.newEntryPanel(0)],
       lastSubmission: [DEFAULT_FACTOR_DATA],
-      topForm: <TopForm guidingHand={this.topFormHandler} water={0} kg={0} decantTo={0} />,
+      topForm: <TopForm guidingHand={this.topFormHandler} water={0} kg={0} decantTo={0} finalVol={0} />,
       water: 0,
       kg: 0,
       decantTo: 0,
+      finalVol: 0,
     };
   }
 
@@ -192,7 +194,7 @@ class AppActivityRegion extends React.Component<AARProps, {
 
   private renderSidebarRegion() {
     let ret: JSX.Element[] = [];
-    let gridRows = generateGridRowsProp(this.state.lastSubmission, this.state.water, this.state.kg, this.state.decantTo);
+    let gridRows = generateGridRowsProp(this.state.lastSubmission, this.state.water, this.state.kg, this.state.decantTo, this.state.finalVol);
     let asciiData = this.dataGridToAsciiTable(DATAGRIDCOLS, gridRows);
     ret.push(<Typography variant="h5">Summary (interactive)</Typography>);
     ret.push(<HorizontalRule />);
@@ -214,7 +216,7 @@ class AppActivityRegion extends React.Component<AARProps, {
   }
 
   private topFormHandler = (values: TopFormData) => {
-    this.setState({ water: values.water, kg: values.kg, decantTo: values.decantTo });
+    this.setState({ water: values.water, kg: values.kg, decantTo: values.decantTo, finalVol: values.finalVol });
     this.forceUpdate();
   }
 
@@ -235,7 +237,7 @@ class AppActivityRegion extends React.Component<AARProps, {
     const ensureHas = (item: Exclude<any, string>, str: string): boolean => Object.prototype.hasOwnProperty.call(item, str);
     if (!(ensureHas(obj, "plausibleEntries") && ensureHas(obj, "water") && ensureHas(obj, "kg") && ensureHas(obj, "lastSubmission"))) return;
     const count: number = obj.plausibleEntries;
-    this.setState({ plausibleEntries: count, water: obj.water, topForm: <TopForm guidingHand={this.topFormHandler} water={obj.water} kg={obj.kg} decantTo={obj.decantTo} /> });
+    this.setState({ plausibleEntries: count, water: obj.water, topForm: <TopForm guidingHand={this.topFormHandler} water={obj.water} kg={obj.kg} decantTo={obj.decantTo} finalVol={obj.finalVol} /> });
     // Set last submissions and factor forms according to specification (suppose data is "probably valid")
     this.state.factorForms.length = this.state.lastSubmission.length = count;
 
