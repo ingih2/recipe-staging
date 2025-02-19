@@ -33,3 +33,5 @@ If you would like to deploy to GitHub Pages, like this site, see the `deploy` ta
 ## Future Updates
 
 This was my first real foray into writing TypeScript/for web. The code is fairly stable (at least for now) -- my first priority is maintenance updates, but I'd like to gradually start improving the code quality, as appropriate.
+
+I have come to learn recently that Create React App (which this is based on) has been deprecated for a while. Bandwidth permitting I hope to refactor this, someday?
