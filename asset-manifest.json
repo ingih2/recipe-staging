@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/recipe-staging/static/js/main.5c111156.js",
+    "main.js": "/recipe-staging/static/js/main.11994729.js",
     "index.html": "/recipe-staging/index.html",
-    "main.5c111156.js.map": "/recipe-staging/static/js/main.5c111156.js.map"
+    "main.11994729.js.map": "/recipe-staging/static/js/main.11994729.js.map"
   },
   "entrypoints": [
-    "static/js/main.5c111156.js"
+    "static/js/main.11994729.js"
   ]
 }
