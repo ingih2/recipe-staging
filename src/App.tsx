@@ -197,6 +197,18 @@ class AppActivityRegion extends React.Component<
     );
     const csvData = this.dataGridToCSV(DATAGRIDCOLS, gridRows);
 
+    const downloadCSV = () => {
+      const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "formula_data.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    };
+
     return [
       <Typography variant="h5">Summary (interactive)</Typography>,
       <HorizontalRule />,
@@ -223,12 +235,8 @@ class AppActivityRegion extends React.Component<
           <Typography variant="body2">
             CSV data ready for spreadsheet import
           </Typography>
-          <Button
-            variant="contained"
-            size="small"
-            onClick={() => navigator.clipboard.writeText(csvData)}
-          >
-            Copy CSV to clipboard
+          <Button variant="contained" size="small" onClick={downloadCSV}>
+            Download CSV
           </Button>
         </div>
         <div style={{ fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
